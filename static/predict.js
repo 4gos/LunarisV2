@@ -18,7 +18,7 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
 
     try {
         const response = await fetch(
-            "https://4g0s-lunarisprueba2.hf.space/",
+            "https://4g0s-lunarisprueba2.hf.space/predict",
             {
                 method: "POST",
                 body: formData
