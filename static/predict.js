@@ -10,7 +10,7 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         return;
     }
 
-    // Creamos el paquete de datos que se envía al backend
+    // Paquete de datos para el backend
     const formData = new FormData();
     formData.append("file", fileInput.files[0]);
 
@@ -30,8 +30,12 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         if (data.error) {
             result.innerText = "Error: " + data.error;
         } else {
-            result.innerText = 
-                `Predicción: ${data.class} (${data.probability}%)`;
+            // Nuevo formato ViT
+            const clase = data.prediction;
+            const prob = data.probabilities[clase];
+
+            result.innerText =
+                `Predicción: ${clase} (${prob}%)`;
         }
 
     } catch (error) {
