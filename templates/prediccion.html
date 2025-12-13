@@ -1,8 +1,14 @@
-<form id="predict-form">
-    <input type="file" id="image-input" accept="image/*" required>
-    <button type="submit">Predecir</button>
-</form>
+{% extends "base.html" %}
 
-<p id="resultado"></p>
+{% block content %}
+    <h1>Predicción</h1>
 
-<script src="{{ url_for('static', filename='predict.js') }}"></script>
+    <form id="predict-form">
+        <input type="file" id="image-input" accept="image/*" required>
+        <button type="submit">Predecir</button>
+    </form>
+
+    <p id="resultado"></p>
+
+    <script src="{{ url_for('static', filename='predict.js') }}"></script>
+{% endblock %}
