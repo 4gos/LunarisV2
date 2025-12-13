@@ -9,3 +9,7 @@ def index():
 @app.route("/prediccion")
 def prediccion():
     return render_template("prediccion.html")
+
+@app.route("/quienes somos")
+def prediccion():
+    return render_template("quienes_somos.html")
