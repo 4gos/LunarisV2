@@ -1,27 +1,56 @@
-document.getElementById("predict-form").addEventListener("submit", async (event) => {
+const form = document.getElementById("predict-form");
+const fileInput = document.getElementById("image-input");
+const result = document.getElementById("resultado");
+const dropZone = document.getElementById("drop-zone");
+const previewImg = document.getElementById("preview-img");
+
+/* ====== Drag & Drop ====== */
+dropZone.addEventListener("click", () => fileInput.click());
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+});
+
+dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+
+    if (e.dataTransfer.files.length > 0) {
+        fileInput.files = e.dataTransfer.files;
+        showPreview(e.dataTransfer.files[0]);
+    }
+});
+
+/* ====== Preview ====== */
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        showPreview(fileInput.files[0]);
+    }
+});
+
+function showPreview(file) {
+    previewImg.src = URL.createObjectURL(file);
+    previewImg.style.display = "block";
+}
+
+/* ====== Submit ====== */
+form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const fileInput = document.getElementById("image-input");
-    const resultBox = document.getElementById("result-box");
-    const classText = document.getElementById("predicted-class");
-    const probsContainer = document.getElementById("probabilities");
-    const previewImg = document.getElementById("imagePreview");
-
     if (fileInput.files.length === 0) {
-        alert("Seleccioná una imagen");
+        result.innerText = "Por favor seleccioná una imagen.";
         return;
     }
 
-    // Preview
-    previewImg.src = URL.createObjectURL(fileInput.files[0]);
-    previewImg.style.display = "block";
-
-    classText.innerText = "Analizando...";
-    probsContainer.innerHTML = "";
-    resultBox.style.display = "block";
-
     const formData = new FormData();
     formData.append("file", fileInput.files[0]);
+
+    result.innerText = "Procesando imagen...";
 
     try {
         const response = await fetch(
@@ -35,31 +64,16 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         const data = await response.json();
 
         if (data.error) {
-            classText.innerText = "Error: " + data.error;
-            return;
+            result.innerText = "Error: " + data.error;
+        } else {
+            const clase = data.prediction;
+            const prob = data.probabilities[clase];
+
+            result.innerText =
+                `Predicción: ${clase} (${prob}%)`;
         }
 
-        // CLAVES CORRECTAS
-        const clase = data.class;
-        const prob = data.probability;
-
-        classText.innerText = `Predicción: ${clase} (${prob}%)`;
-
-        Object.entries(data.probabilities).forEach(([label, p]) => {
-            const item = document.createElement("div");
-            item.className = "prob-item";
-
-            item.innerHTML = `
-                <span>${label}: ${p}%</span>
-                <div class="bar-container">
-                    <div class="bar" style="width:${p}%"></div>
-                </div>
-            `;
-
-            probsContainer.appendChild(item);
-        });
-
     } catch (error) {
-        classText.innerText = "Error al conectar con el predictor.";
+        result.innerText = "Error al conectar con el predictor.";
     }
 });
