@@ -1,14 +1,40 @@
 {% extends "base.html" %}
-
 {% block content %}
-    <h1>Predicción</h1>
 
-    <form id="predict-form">
-        <input type="file" id="image-input" accept="image/*" required>
-        <button type="submit">Predecir</button>
+<div class="container">
+
+    <h1>CLASIFICACIÓN DE LESIONES CUTÁNEAS</h1>
+
+    <form id="predict-form" class="upload-box">
+        <input
+            id="image-input"
+            type="file"
+            accept="image/*"
+            required
+        >
+        <button type="submit">Analizar Imagen</button>
     </form>
 
-    <p id="resultado"></p>
+    <div class="analysis-area">
 
-    <script src="{{ url_for('static', filename='predict.js') }}"></script>
+        <!-- Imagen -->
+        <div class="image-container">
+            <img id="imagePreview" class="preview-img" style="display:none;">
+        </div>
+
+        <!-- Resultados -->
+        <div id="result-box" class="result" style="display:none;">
+            <h3>Resultado</h3>
+            <strong id="predicted-class"></strong>
+
+            <h4>Probabilidades</h4>
+
+            <div id="probabilities"></div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='predict.js') }}"></script>
+
 {% endblock %}
