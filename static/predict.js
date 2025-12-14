@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const clase = data.class;
-            const prob = data.probability;
+            const clase = data.prediction;
+            const prob = data.probabilities;
 
             classText.innerText = `Predicción: ${clase} (${prob}%)`;
 
