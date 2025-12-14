@@ -1,26 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.getElementById("predict-form").addEventListener("submit", async (event) => {
-        event.preventDefault();
+    const form = document.getElementById("predict-form");
+    const fileInput = document.getElementById("image-input");
+    const dropZone = document.getElementById("drop-zone");
+    const previewImg = document.getElementById("imagePreview");
+    const classText = document.getElementById("predicted-class");
+    const probsContainer = document.getElementById("probabilities");
+    const resultBox = document.getElementById("result-box");
 
-        const fileInput = document.getElementById("image-input");
-        const resultBox = document.getElementById("result-box");
-        const classText = document.getElementById("predicted-class");
-        const probsContainer = document.getElementById("probabilities");
-        const previewImg = document.getElementById("imagePreview");
+    /* ===== Drag & Drop ===== */
 
-        if (!fileInput || !resultBox || !classText || !probsContainer || !previewImg) {
-            console.error("Faltan elementos en el HTML");
-            return;
+    dropZone.addEventListener("click", () => fileInput.click());
+
+    dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+
+        if (e.dataTransfer.files.length > 0) {
+            fileInput.files = e.dataTransfer.files;
+            showPreview(e.dataTransfer.files[0]);
         }
+    });
+
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length > 0) {
+            showPreview(fileInput.files[0]);
+        }
+    });
+
+    function showPreview(file) {
+        previewImg.src = URL.createObjectURL(file);
+        previewImg.style.display = "block";
+    }
+
+    /* ===== Submit ===== */
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
         if (fileInput.files.length === 0) {
             alert("Seleccioná una imagen");
             return;
         }
-
-        previewImg.src = URL.createObjectURL(fileInput.files[0]);
-        previewImg.style.display = "block";
 
         classText.innerText = "Analizando...";
         probsContainer.innerHTML = "";
@@ -40,13 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            if (data.error) {
-                classText.innerText = "Error: " + data.error;
-                return;
-            }
-
             const clase = data.prediction;
-            const prob = data.probabilities[clase]
+            const prob = data.probabilities[clase];
 
             classText.innerText = `Predicción: ${clase} (${prob}%)`;
 
@@ -64,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 probsContainer.appendChild(item);
             });
 
-        } catch (error) {
+        } catch (err) {
             classText.innerText = "Error al conectar con el predictor.";
         }
     });
