@@ -41,8 +41,6 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         }
 
         // Clase principal
-        
-        const data = await response.json();
     
         const clase = data.prediction;
         const prob = data.probabilities[clase];
