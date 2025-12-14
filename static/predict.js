@@ -12,11 +12,10 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         return;
     }
 
-    // Preview de la imagen
+    // Preview
     previewImg.src = URL.createObjectURL(fileInput.files[0]);
     previewImg.style.display = "block";
 
-    // Limpiar resultados anteriores
     classText.innerText = "Analizando...";
     probsContainer.innerHTML = "";
     resultBox.style.display = "block";
@@ -40,23 +39,20 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
             return;
         }
 
-        // Clase principal
-    
-        const clase = data.prediction;
-        const prob = data.probabilities[clase];
-    
-        document.getElementById("resultado").innerText =
-            `Predicción: ${clase} (${prob}%)`;
+        // CLAVES CORRECTAS
+        const clase = data.class;
+        const prob = data.probability;
 
-        // Barras de probabilidad
-        Object.entries(data.probabilities).forEach(([label, prob]) => {
+        classText.innerText = `Predicción: ${clase} (${prob}%)`;
+
+        Object.entries(data.probabilities).forEach(([label, p]) => {
             const item = document.createElement("div");
             item.className = "prob-item";
 
             item.innerHTML = `
-                <span>${label}: ${prob}%</span>
+                <span>${label}: ${p}%</span>
                 <div class="bar-container">
-                    <div class="bar" style="width:${prob}%"></div>
+                    <div class="bar" style="width:${p}%"></div>
                 </div>
             `;
 
