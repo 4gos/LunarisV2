@@ -5,15 +5,32 @@
 
     <h1>CLASIFICACIÓN DE LESIONES CUTÁNEAS</h1>
 
+    <div class="predict-container">
+
     <form id="predict-form" class="upload-box">
-        <input
-            id="image-input"
-            type="file"
-            accept="image/*"
-            required
-        >
-        <button type="submit">Analizar Imagen</button>
+
+        <div id="drop-zone">
+            <p id="drop-text">Arrastrá una imagen acá o hacé click</p>
+            <input
+                type="file"
+                id="image-input"
+                accept="image/*"
+                hidden
+            >
+        </div>
+
+        <button type="submit">Predecir</button>
     </form>
+
+    <img id="imagePreview" class="preview-img" style="display:none;">
+
+    <div id="result-box" style="display:none;">
+        <h3 id="predicted-class"></h3>
+        <div id="probabilities"></div>
+    </div>
+
+</div>
+
 
     <div class="analysis-area">
 
@@ -38,3 +55,7 @@
 <script src="{{ url_for('static', filename='predict.js') }}"></script>
 
 {% endblock %}
+
+
+
+
