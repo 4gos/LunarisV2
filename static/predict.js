@@ -41,8 +41,14 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         }
 
         // Clase principal
-        classText.innerText =
-            `${data.class} (${data.probability}%)`;
+        
+        const data = await response.json();
+    
+        const clase = data.prediction;
+        const prob = data.probabilities[clase];
+    
+        document.getElementById("resultado").innerText =
+            `Predicción: ${clase} (${prob}%)`;
 
         // Barras de probabilidad
         Object.entries(data.probabilities).forEach(([label, prob]) => {
