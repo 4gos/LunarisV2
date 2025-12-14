@@ -1,20 +1,28 @@
 document.getElementById("predict-form").addEventListener("submit", async (event) => {
-    event.preventDefault(); 
-    // Evita que el formulario recargue la página
+    event.preventDefault();
 
-    const result = document.getElementById("resultado");
     const fileInput = document.getElementById("image-input");
+    const resultBox = document.getElementById("result-box");
+    const classText = document.getElementById("predicted-class");
+    const probsContainer = document.getElementById("probabilities");
+    const previewImg = document.getElementById("imagePreview");
 
     if (fileInput.files.length === 0) {
-        result.innerText = "Por favor seleccioná una imagen.";
+        alert("Seleccioná una imagen");
         return;
     }
 
-    // Paquete de datos para el backend
+    // Preview de la imagen
+    previewImg.src = URL.createObjectURL(fileInput.files[0]);
+    previewImg.style.display = "block";
+
+    // Limpiar resultados anteriores
+    classText.innerText = "Analizando...";
+    probsContainer.innerHTML = "";
+    resultBox.style.display = "block";
+
     const formData = new FormData();
     formData.append("file", fileInput.files[0]);
-
-    result.innerText = "Procesando imagen...";
 
     try {
         const response = await fetch(
@@ -28,17 +36,30 @@ document.getElementById("predict-form").addEventListener("submit", async (event)
         const data = await response.json();
 
         if (data.error) {
-            result.innerText = "Error: " + data.error;
-        } else {
-            // Nuevo formato ViT
-            const clase = data.prediction;
-            const prob = data.probabilities[clase];
-
-            result.innerText =
-                `Predicción: ${clase} (${prob}%)`;
+            classText.innerText = "Error: " + data.error;
+            return;
         }
 
+        // Clase principal
+        classText.innerText =
+            `${data.class} (${data.probability}%)`;
+
+        // Barras de probabilidad
+        Object.entries(data.probabilities).forEach(([label, prob]) => {
+            const item = document.createElement("div");
+            item.className = "prob-item";
+
+            item.innerHTML = `
+                <span>${label}: ${prob}%</span>
+                <div class="bar-container">
+                    <div class="bar" style="width:${prob}%"></div>
+                </div>
+            `;
+
+            probsContainer.appendChild(item);
+        });
+
     } catch (error) {
-        result.innerText = "Error al conectar con el predictor.";
+        classText.innerText = "Error al conectar con el predictor.";
     }
 });
