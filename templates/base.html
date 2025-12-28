@@ -5,6 +5,23 @@
     <title>Lunaris</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+    
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem("lunaris_disclaimer_accepted")) {
+        const accepted = confirm(
+            "Esta herramienta es experimental y de uso exclusivo para profesionales de la salud o entornos de prueba.\n\n¿Confirmás que comprendés esta advertencia?"
+        );
+
+        if (!accepted) {
+            window.location.href = "https://www.google.com";
+        } else {
+            localStorage.setItem("lunaris_disclaimer_accepted", "true");
+        }
+    }
+});
+</script>
+
 <body>
     <header>
         <div class="logo-container">
@@ -25,3 +42,4 @@
     </main>
 </body>
 </html>
+
