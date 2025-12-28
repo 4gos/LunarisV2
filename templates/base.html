@@ -8,7 +8,7 @@
     
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    if (!localStorage.getItem("lunaris_disclaimer_accepted")) {
+    if (!sessionStorage.getItem("lunaris_disclaimer_accepted")) {
         const accepted = confirm(
             "Esta herramienta es experimental y de uso exclusivo para profesionales de la salud o entornos de prueba.\n\n¿Confirmás que comprendés esta advertencia?"
         );
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!accepted) {
             window.location.href = "https://www.google.com";
         } else {
-            localStorage.setItem("lunaris_disclaimer_accepted", "true");
+            sessionStorage.setItem("lunaris_disclaimer_accepted", "true");
         }
     }
 });
@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </main>
 </body>
 </html>
+
 
 
 
