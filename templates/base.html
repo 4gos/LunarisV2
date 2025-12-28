@@ -28,13 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
             <img src="{{ url_for('static', filename='Logo Lunaris1.jpg') }}" alt="Lunaris Logo" class="logo">
             <span class="title">LUNARIS</span>
         </div>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('quienes_somos') }}">Quienes Somos</a></li>
-                <li><a href="{{ url_for('prediccion') }}">Predicción</a></li>
+
+        <nav class="navbar">
+            <ul class="menu">
+    
+            <li class="menu-item dropdown">
+                <a href="#">Inicio ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('index') }}">Presentacion del Proyecto</a></li>
+                    <li><a href="{{ url_for('quienes_somos') }}">Quienes Somos</a></li>
+                </ul>
+            </li>
+    
+            <li class="menu-item">
+                <a href="{{ url_for('prediccion') }}">Predicción</a>
+            </li>
+                
             </ul>
-        </nav>
+        </nav>       
     </header>
 
     <main>
@@ -42,4 +53,5 @@ document.addEventListener("DOMContentLoaded", () => {
     </main>
 </body>
 </html>
+
 
