@@ -97,4 +97,41 @@ main {
     justify-content: left;;
     text-align: left;
 }
+/* ===== MENÚ DESPLEGABLE (DROPDOWN) ===== */
+
+nav ul li {
+    position: relative; /* CRÍTICO */
+}
+
+/* Submenu oculto */
+nav ul li ul {
+    display: none;              /* CRÍTICO */
+    position: absolute;         /* CRÍTICO */
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+/* Items del submenu */
+nav ul li ul li a {
+    padding: 10px 20px;
+    display: block;
+    color: #2F2F2F;
+    font-weight: normal;
+}
+
+/* Hover visual */
+nav ul li ul li a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Mostrar submenu al pasar el mouse */
+nav ul li:hover ul {
+    display: block;
+}
+
 
