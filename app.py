@@ -10,6 +10,6 @@ def index():
 def prediccion():
     return render_template("prediccion.html")
 
-@app.route("/quienes somos")
-def quienes_somos():
-    return render_template("quienes_somos.html")
+@app.route("/ViT")
+def ViT():
+    return render_template("ViT.html")
