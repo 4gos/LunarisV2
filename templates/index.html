@@ -1,43 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section id="presentacion">
-    <h2>Presentación del proyecto</h2>
-
-    <p>
-        Lunaris es una herramienta experimental basada en inteligencia artificial
-        para la clasificación de lesiones cutáneas.
-    </p>
-
-    <p>Intenta:</p>
-
-    <ul class="objetivos">
-        <li>
-            Facilitar el uso a través del diseño de una interfaz gráfica interactiva
-            y accesible basada en el modelo de Deep Learning elegido, permitiendo su
-            utilización por profesionales sin formación en bioinformática.
-        </li>
-        <li>
-            Implementar recursos de explicabilidad en modelos de deep learning
-            mediante técnicas de XAI que permitan interpretar las decisiones del
-            sistema y fortalecer la confianza clínica.
-        </li>
-        <li>
-            Promover la construcción de un repositorio local de imágenes
-            dermatoscópicas que contribuya a la disponibilidad de datos públicos.
-        </li>
-    </ul>
-</section>
-
-<section id="quienes-somos">
-    <h2>Quiénes somos</h2>
-    <p>
-        Somos Agostina y Lucia, estudiantes de ingeniería biomédica desarrollando un sistema
-        amigable con el usuario para poder detectar de manera mas intuitiva las lesiones cutaneas.
-        Siendo el usuario un profesional de la salud, Lunaris es una herramienta mas para ayudar a la deteccion de lesiones cutaneas.
-    </p>
-</section>
-
+<div class="inicio-content">
+    <section id="presentacion" class="inicio-section active">
+        <h2>Presentación del proyecto</h2>
+    
+        <p>
+            Lunaris es una herramienta experimental basada en inteligencia artificial
+            para la clasificación de lesiones cutáneas.
+        </p>
+    
+        <p>Intenta:</p>
+    
+        <ul class="objetivos">
+            <li>
+                Facilitar el uso a través del diseño de una interfaz gráfica interactiva
+                y accesible basada en el modelo de Deep Learning elegido, permitiendo su
+                utilización por profesionales sin formación en bioinformática.
+            </li>
+            <li>
+                Implementar recursos de explicabilidad en modelos de deep learning
+                mediante técnicas de XAI que permitan interpretar las decisiones del
+                sistema y fortalecer la confianza clínica.
+            </li>
+            <li>
+                Promover la construcción de un repositorio local de imágenes
+                dermatoscópicas que contribuya a la disponibilidad de datos públicos.
+            </li>
+        </ul>
+    </section>
+    
+    <section id="quienes-somos" class="inicio-section">
+        <h2>Quiénes somos</h2>
+        <p>
+            Somos Agostina y Lucia, estudiantes de ingeniería biomédica desarrollando un sistema
+            amigable con el usuario para poder detectar de manera mas intuitiva las lesiones cutaneas.
+            Siendo el usuario un profesional de la salud, Lunaris es una herramienta mas para ayudar a la deteccion de lesiones cutaneas.
+        </p>
+    </section>
+</div>
 {% endblock %}
+
 
 
