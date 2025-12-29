@@ -13,3 +13,7 @@ def prediccion():
 @app.route("/ViT")
 def ViT():
     return render_template("ViT.html")
+
+@app.route("/Dataset_local")
+def Dataset_local():
+    return render_template("Dataset_local.html")
