@@ -134,4 +134,14 @@ nav ul li:hover ul {
     display: block;
 }
 
+/* Mostrar una seccion en el inicio a la vez */
+.inicio-section {
+    display: none;
+}
+
+.inicio-section.active {
+    display: block;
+}
+
+
 
