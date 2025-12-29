@@ -29,25 +29,22 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="title">LUNARIS</span>
         </div>
         
-        <script src="{{ url_for('static', filename='menu.js') }}"></script>
 
-        <nav class="navbar">
-            <ul class="menu">
-            
-                <li class="menu-item dropdown">
-                    <a href="#">Inicio ▾</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" data-section="presentacion">Presentación del Proyecto</a></li>
-                        <li><a href="#" data-section="quienes_somos">Quiénes somos</a></li>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="{{ url_for('inicio') }}">Inicio</a>
+                    <ul class="submenu">
+                        <li><a href="{{ url_for('inicio') }}#presentacion">Presentación del proyecto</a></li>
+                        <li><a href="{{ url_for('inicio') }}#quienes_somos">Quiénes somos</a></li>
                     </ul>
                 </li>
-    
-                <li class="menu-item">
-                    <a href="{{ url_for('prediccion') }}">Predicción</a>
-                </li>
-                
+        
+                <li><a href="{{ url_for('prediccion') }}">Predicción</a></li>
+               
             </ul>
-        </nav>       
+        </nav>
+     
     </header>
 
     <main>
@@ -55,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </main>
 </body>
 </html>
+
 
 
 
