@@ -28,15 +28,17 @@ document.addEventListener("DOMContentLoaded", () => {
             <img src="{{ url_for('static', filename='Logo Lunaris1.jpg') }}" alt="Lunaris Logo" class="logo">
             <span class="title">LUNARIS</span>
         </div>
+        
+        <script src="{{ url_for('static', filename='menu.js') }}"></script>
 
         <nav class="navbar">
             <ul class="menu">
-    
+            
                 <li class="menu-item dropdown">
                     <a href="#">Inicio ▾</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#presentacion">Presentación del Proyecto</a></li>
-                        <li><a href="#quienes_somos">Quiénes somos</a></li>
+                        <li><a href="#" data-section="presentacion">Presentación del Proyecto</a></li>
+                        <li><a href="#" data-section="quienes_somos">Quiénes somos</a></li>
                     </ul>
                 </li>
     
@@ -53,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </main>
 </body>
 </html>
+
 
 
 
