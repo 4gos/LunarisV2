@@ -60,6 +60,13 @@ main {
     margin-top: 40px;
 }
 
+/* Estado con resultado */
+.predict-container.show-result {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .upload-box {
     display: flex;
     flex-direction: column;
@@ -322,6 +329,7 @@ nav ul li:hover ul {
 .inicio-section.active {
     display: block;
 }
+
 
 
 
