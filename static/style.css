@@ -66,6 +66,16 @@ main {
     align-items: flex-start;
     justify-content: center;
 }
+.left-panel {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-panel {
+    width: 340px;
+}
 
 .upload-box {
     display: flex;
@@ -329,6 +339,7 @@ nav ul li:hover ul {
 .inicio-section.active {
     display: block;
 }
+
 
 
 
