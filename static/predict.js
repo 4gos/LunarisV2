@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const classText = document.getElementById("predicted-class");
     const probsContainer = document.getElementById("probabilities");
     const resultBox = document.getElementById("result-box");
+    const predictContainer = document.getElementById("predict-container");
 
     /* ===== Drag & Drop ===== */
 
@@ -52,9 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Estado visual inicial de análisis
         classText.innerText = "Analizando...";
         probsContainer.innerHTML = "";
         resultBox.style.display = "block";
+
+        // 🔹 ACTIVAMOS EL NUEVO LAYOUT (imagen a la izquierda, resultado a la derecha)
+        predictContainer.classList.add("show-result");
 
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
