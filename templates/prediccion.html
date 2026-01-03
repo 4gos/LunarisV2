@@ -1,4 +1,11 @@
-<div class="predict-container" id="predict-container">
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h1>CLASIFICACIÓN DE LESIONES CUTÁNEAS</h1>
+
+    <div class="predict-container" id="predict-container">
 
     <div class="left-panel">
 
@@ -30,3 +37,31 @@
     </div>
 
 </div>
+
+<script src="{{ url_for('static', filename='predict.js') }}"></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
