@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+    console.log("predict.js cargado");
+    ...
+});
     const form = document.getElementById("predict-form");
     const fileInput = document.getElementById("image-input");
     const dropZone = document.getElementById("drop-zone");
