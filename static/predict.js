@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const resumen = document.createElement("p");
             resumen.innerText =
-                `Criterios positivos: ${abcd.positivos} / 4';
+                `Criterios positivos: ${abcd.positives} / 4';
             probsContainer.appendChild(resumen);
 
         } catch (err) {
