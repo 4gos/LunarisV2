@@ -4,12 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.getElementById("image-input");
     const dropZone = document.getElementById("drop-zone");
     const previewImg = document.getElementById("imagePreview");
+
     const classText = document.getElementById("predicted-class");
     const probsContainer = document.getElementById("probabilities");
     const resultBox = document.getElementById("result-box");
     const predictContainer = document.getElementById("predict-container");
 
-    /* ===== Drag & Drop ===== */
+    /* =====================
+       Drag & Drop
+    ===================== */
 
     dropZone.addEventListener("click", () => fileInput.click());
 
@@ -43,7 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         previewImg.style.display = "block";
     }
 
-    /* ===== Submit ===== */
+    /* =====================
+       Submit
+    ===================== */
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -53,12 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Estado visual inicial de análisis
+        // Estado inicial
         classText.innerText = "Analizando...";
         probsContainer.innerHTML = "";
         resultBox.style.display = "block";
-
-        // 🔹 ACTIVAMOS EL NUEVO LAYOUT (imagen a la izquierda, resultado a la derecha)
         predictContainer.classList.add("show-result");
 
         const formData = new FormData();
@@ -75,24 +78,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            const clase = data.prediction;
-            const prob = data.probabilities[clase];
+            /* =====================
+               ViT
+            ===================== */
 
-            classText.innerText = `Predicción: ${clase} (${prob}%)`;
+            const vitClass = data.vit.prediction;
+            const vitProbs = data.vit.probabilities;
 
-            Object.entries(data.probabilities).forEach(([label, p]) => {
-                const item = document.createElement("div");
-                item.className = "prob-item";
+            classText.innerText = `Clase predicha: ${vitClass}`;
 
-                item.innerHTML = `
-                    <span>${label}: ${p}%</span>
-                    <div class="bar-container">
-                        <div class="bar" style="width:${p}%"></div>
-                    </div>
-                `;
+            const vitTitle = document.createElement("h4");
+            vitTitle.innerText = "Probabilidades ViT";
+            probsContainer.appendChild(vitTitle);
 
-                probsContainer.appendChild(item);
+            Object.entries(vitProbs).forEach(([label, p]) => {
+                const line = document.createElement("p");
+                line.innerText = `${label}: ${p}`;
+                probsContainer.appendChild(line);
             });
+
+            /* =====================
+               ABCD
+            ===================== */
+
+            const abcd = data.abcd;
+            const flags = abcd.flags;
+
+            const abcdTitle = document.createElement("h4");
+            abcdTitle.innerText = "Criterios ABCD";
+            probsContainer.appendChild(abcdTitle);
+
+            Object.entries(flags).forEach(([key, value]) => {
+                const line = document.createElement("p");
+                line.innerText = `${key}: ${value}`;
+                probsContainer.appendChild(line);
+            });
+
+            const resumen = document.createElement("p");
+            resumen.innerText =
+                `Criterios positivos: ${abcd.positivos} / ${abcd.total}`;
+            probsContainer.appendChild(resumen);
 
         } catch (err) {
             classText.innerText = "Error al conectar con el predictor.";
@@ -100,3 +125,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
