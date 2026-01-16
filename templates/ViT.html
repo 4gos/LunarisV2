@@ -3,9 +3,10 @@
     <h1>Como funciona nuestro predictor</h1>
     <p>
     La última versión del modelo Vision Transformer (ViT) implementada en este sistema de apoyo al diagnóstico de lesiones dermatológicas representa una evolución significativa respecto de los enfoques tradicionales de análisis de imágenes médicas. Su diseño se fundamenta en la adaptación de arquitecturas originalmente desarrolladas para el procesamiento del lenguaje natural, específicamente los modelos basados en transformadores, al dominio de la visión por computadora. Esta elección responde a la necesidad de capturar relaciones globales dentro de las imágenes dermatoscópicas, una característica particularmente relevante en el análisis de lesiones cutáneas, donde la interpretación clínica no depende únicamente de detalles locales, sino de la evaluación integral de la lesión.
-    
+    </p>
+    <p>
     El funcionamiento del modelo comienza en la etapa de preprocesamiento de la imagen. Cada imagen dermatoscópica es redimensionada a un tamaño fijo compatible con la arquitectura del ViT y posteriormente dividida en pequeños fragmentos cuadrados denominados patches. Cada parche representa una región local de la imagen y contiene información relevante sobre color, textura, bordes y patrones morfológicos. A diferencia de las CNN, que aplican filtros convolucionales de manera progresiva para extraer características, el ViT trata cada parche como una unidad independiente desde el inicio del procesamiento.
-    
+    </p>
     Estos parches son transformados en vectores numéricos mediante una proyección lineal, generando lo que se conoce como patch embeddings. A cada uno de estos vectores se le suma una codificación posicional, cuya función es preservar la información espacial de la imagen original. Esta etapa es esencial, ya que los transformadores, por su naturaleza, no poseen un sesgo inductivo espacial como el de las convoluciones, y requieren que la posición relativa de cada fragmento sea incorporada explícitamente para mantener la coherencia estructural de la imagen.
     
     Una vez construida la secuencia de embeddings, esta se introduce en el núcleo del modelo ViT, compuesto por múltiples capas de transformadores que utilizan el mecanismo de self-attention o autoatención. Este mecanismo permite que cada parche evalúe su relevancia en relación con todos los demás parches de la imagen, asignando diferentes pesos de atención según la información que aportan al proceso de clasificación. En términos clínicos, esto significa que el modelo puede analizar simultáneamente la simetría global de la lesión, la regularidad de los bordes, la distribución del color y la presencia de estructuras atípicas, sin limitarse a una región específica.
@@ -33,6 +34,7 @@
     En conjunto, la última versión del Vision Transformer implementada en este proyecto combina una arquitectura avanzada capaz de capturar relaciones globales en imágenes dermatoscópicas con un esquema de evaluación riguroso basado en métricas clínicamente relevantes. Su integración en una interfaz interactiva y explicable refuerza su potencial como herramienta de apoyo al diagnóstico, contribuyendo a una evaluación más objetiva, reproducible y transparente de las lesiones cutáneas, sin sustituir en ningún momento el criterio clínico del profesional de la salud. </p>
     </p>
 {% endblock %}
+
 
 
 
