@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const flags = abcd.flags;
 
             const abcdTitle = document.createElement("h4");
-            abcdTitle.innerText = "Criterios ABCD";
+            abcdTitle.innerText = "Criterios Dermatoscopicos";
             probsContainer.appendChild(abcdTitle);
 
             Object.entries(flags).forEach(([key, value]) => {
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const resumen = document.createElement("p");
             resumen.innerText =
-                `Criterios positivos: ${abcd.positives} / 4`;
+                `Criterios positivos: ${abcd.positives} / 3`;
             probsContainer.appendChild(resumen);
 
         } catch (err) {
