@@ -2,51 +2,31 @@
 {% block content %}
     <h1>Como funciona nuestro predictor</h1>
     <p>
-    La última versión del modelo Vision Transformer (ViT) implementada en este sistema de apoyo al diagnóstico de lesiones dermatológicas representa una evolución significativa respecto de los enfoques tradicionales de análisis de imágenes médicas. Su diseño se fundamenta en la adaptación de arquitecturas originalmente desarrolladas para el procesamiento del lenguaje natural, específicamente los modelos basados en transformadores, al dominio de la visión por computadora. Esta elección responde a la necesidad de capturar relaciones globales dentro de las imágenes dermatoscópicas, una característica particularmente relevante en el análisis de lesiones cutáneas, donde la interpretación clínica no depende únicamente de detalles locales, sino de la evaluación integral de la lesión.
+    Para analizar imágenes de lesiones en la piel usamos un modelo de inteligencia artificial llamado Vision Transformer, o simplemente ViT. Es una tecnología relativamente nueva en visión por computadora que, en vez de mirar la imagen como un todo desde el principio, la divide en pequeñas partes para poder interpretarla mejor.
     </p>
     <p>
-    El funcionamiento del modelo comienza en la etapa de preprocesamiento de la imagen. Cada imagen dermatoscópica es redimensionada a un tamaño fijo compatible con la arquitectura del ViT y posteriormente dividida en pequeños fragmentos cuadrados denominados patches. Cada parche representa una región local de la imagen y contiene información relevante sobre color, textura, bordes y patrones morfológicos. A diferencia de las CNN, que aplican filtros convolucionales de manera progresiva para extraer características, el ViT trata cada parche como una unidad independiente desde el inicio del procesamiento.
+    Primero, cada imagen dermatológica se separa en pequeños cuadrados (parches). Es como si cortaras una foto en muchas piezas y el modelo analizara cada una por separado. Después, esas piezas se convierten en datos que la red puede entender y se les agrega información sobre su posición para no perder la estructura original de la imagen. Esto es importante porque la ubicación de una lesión o su forma dentro de la piel aporta información clínica relevante.
     </p>
     <p>
-    Estos parches son transformados en vectores numéricos mediante una proyección lineal, generando lo que se conoce como patch embeddings. A cada uno de estos vectores se le suma una codificación posicional, cuya función es preservar la información espacial de la imagen original. Esta etapa es esencial, ya que los transformadores, por su naturaleza, no poseen un sesgo inductivo espacial como el de las convoluciones, y requieren que la posición relativa de cada fragmento sea incorporada explícitamente para mantener la coherencia estructural de la imagen.
+    Una vez preparados esos parches, el modelo usa un mecanismo llamado “autoatención”. Dicho simple: cada parte de la imagen puede “mirar” a las demás para entender cómo se relacionan. Esto permite detectar patrones complejos, por ejemplo combinaciones de color, textura o bordes que pueden indicar distintos tipos de lesiones cutáneas.
     </p>
     <p>
-    Una vez construida la secuencia de embeddings, esta se introduce en el núcleo del modelo ViT, compuesto por múltiples capas de transformadores que utilizan el mecanismo de self-attention o autoatención. Este mecanismo permite que cada parche evalúe su relevancia en relación con todos los demás parches de la imagen, asignando diferentes pesos de atención según la información que aportan al proceso de clasificación. En términos clínicos, esto significa que el modelo puede analizar simultáneamente la simetría global de la lesión, la regularidad de los bordes, la distribución del color y la presencia de estructuras atípicas, sin limitarse a una región específica.
+    Para entrenar el modelo usamos imágenes previamente clasificadas en cinco categorías dermatológicas. Parte de las imágenes se usan para que el modelo aprenda (entrenamiento), otra parte para verificar que realmente esté aprendiendo y no memorizando (validación), y un último grupo para evaluar su desempeño final (prueba). Esta separación ayuda a que los resultados sean confiables.
     </p>
     <p>
-    Esta capacidad de modelar relaciones globales resulta especialmente ventajosa en dermatología, donde muchos criterios diagnósticos —como los contemplados en la regla ABCD o en la regla de los tres puntos— dependen de la evaluación integral de la lesión. Mientras que las CNN tienden a construir esta comprensión global de forma progresiva y jerárquica, el ViT puede acceder a esta información desde etapas tempranas del procesamiento, lo que favorece una representación más rica y contextualizada de la imagen.
+    Además, utilizamos un modelo previamente entrenado con millones de imágenes generales. Esto se conoce como transferencia de aprendizaje. En lugar de empezar desde cero, el modelo ya sabe reconocer formas, colores y texturas básicas, y solo necesita adaptarse al problema específico de lesiones cutáneas. Esto reduce tiempos de entrenamiento y mejora la precisión.
     </p>
     <p>
-    La versión final del modelo implementado en este trabajo utiliza transfer learning, es decir, parte de una arquitectura ViT previamente entrenada sobre grandes bases de datos de imágenes generales. Este preentrenamiento permite que el modelo adquiera representaciones visuales robustas y genéricas, que luego son ajustadas mediante un proceso de fine-tuning utilizando imágenes dermatoscópicas específicas. Esta estrategia es particularmente relevante en el ámbito médico, donde la cantidad de datos etiquetados suele ser limitada y la variabilidad interinstitucional puede afectar el desempeño de los modelos entrenados desde cero.
+    También aplicamos aumentación de datos. Básicamente, generamos variaciones de las imágenes (cambios leves de brillo, rotaciones, recortes, etc.) para que el modelo vea más diversidad. Esto ayuda a evitar que aprenda solo casos muy específicos y mejora su capacidad para generalizar a imágenes nuevas. En clases donde había menos ejemplos se aplicaron transformaciones más intensas para equilibrar el aprendizaje.
     </p>
     <p>
-    Durante la fase de entrenamiento, el modelo aprende a asociar los patrones visuales presentes en las imágenes con las categorías diagnósticas definidas en la clasificación adoptada por el proyecto. La salida del ViT se obtiene a través de un token especial de clasificación que sintetiza la información global de la imagen y es procesado por una capa totalmente conectada que produce una distribución de probabilidades sobre las distintas clases. Estas probabilidades no solo indican la clase predicha, sino también el grado de confianza del modelo en dicha predicción, un aspecto fundamental para su uso como herramienta de apoyo clínico.
+    Durante el entrenamiento se ajustaron varios parámetros, como la velocidad de aprendizaje del modelo o la regularización para evitar sobreajuste. Incluso el entrenamiento se hizo en dos etapas: primero se adaptó la capa final encargada de clasificar las lesiones y luego se ajustó todo el modelo de forma más fina. Esto permitió aprovechar el conocimiento previo sin perder precisión.
     </p>
     <p>
-    Para evaluar la fiabilidad y el desempeño del modelo, se empleó un conjunto de métricas ampliamente utilizadas en el ámbito de la inteligencia artificial aplicada a la medicina. Estas métricas permiten analizar el comportamiento del sistema desde diferentes perspectivas y resultan esenciales para interpretar su utilidad clínica real.
-    </p>
-    <p>
-    Entre las métricas globales se encuentra la exactitud (accuracy), que mide la proporción de predicciones correctas sobre el total de muestras evaluadas. Si bien la exactitud ofrece una visión general del rendimiento del modelo, su interpretación debe realizarse con cautela en contextos donde existe desbalance entre clases, una situación frecuente en datasets médicos.
-    </p>
-    <p>
-    Por este motivo, se incorporaron métricas más específicas orientadas a la evaluación clínica. La sensibilidad (recall o true positive rate) mide la capacidad del modelo para identificar correctamente las lesiones positivas de una determinada clase, por ejemplo, lesiones malignas. Esta métrica resulta crítica en el contexto del cáncer de piel, ya que una baja sensibilidad implicaría un mayor número de falsos negativos, es decir, lesiones potencialmente peligrosas que el sistema no detecta.
-    </p>
-    <p>
-    Complementariamente, la especificidad (true negative rate) evalúa la capacidad del modelo para identificar correctamente las lesiones negativas, evitando clasificar como malignas lesiones benignas. Una especificidad adecuada es importante para reducir falsos positivos, que pueden generar ansiedad innecesaria en los pacientes y derivar en procedimientos diagnósticos invasivos evitables.
-    </p>
-    <p>
-    También se utilizó la precisión (precision), que indica la proporción de predicciones positivas que realmente corresponden a casos positivos. Esta métrica resulta especialmente útil para evaluar la confiabilidad de una predicción positiva realizada por el modelo. En conjunto con la sensibilidad, permite calcular la medida F1, que representa el equilibrio entre ambas y proporciona una visión más robusta del desempeño del sistema en escenarios clínicos reales.
-    </p>
-    <p>
-    Otra métrica de relevancia es el Área Bajo la Curva ROC (AUC-ROC), que evalúa la capacidad discriminativa del modelo a lo largo de distintos umbrales de decisión. Un valor elevado de AUC indica que el sistema es capaz de separar de manera efectiva las distintas clases, independientemente del punto de corte seleccionado. Esta característica resulta particularmente importante cuando el modelo se utiliza como herramienta de triaje o apoyo a la decisión clínica, donde los umbrales pueden ajustarse según el contexto asistencial.
-    </p>
-    <p>
-    Finalmente, el análisis de matrices de confusión permitió identificar patrones de error específicos, como confusiones frecuentes entre lesiones benignas y precancerosas o entre distintas categorías melanocíticas. Este análisis cualitativo complementa las métricas cuantitativas y aporta información valiosa para futuras mejoras del sistema.
-    </p>
-    <p>
-    En conjunto, la última versión del Vision Transformer implementada en este proyecto combina una arquitectura avanzada capaz de capturar relaciones globales en imágenes dermatoscópicas con un esquema de evaluación riguroso basado en métricas clínicamente relevantes. Su integración en una interfaz interactiva y explicable refuerza su potencial como herramienta de apoyo al diagnóstico, contribuyendo a una evaluación más objetiva, reproducible y transparente de las lesiones cutáneas, sin sustituir en ningún momento el criterio clínico del profesional de la salud. </p>
+    El resultado final es un sistema capaz de estimar probabilidades para cada tipo de lesión a partir de una imagen. Es importante aclarar que estas probabilidades representan una estimación estadística del modelo, no un diagnóstico médico definitivo. La herramienta busca servir como apoyo para detección temprana y análisis complementario, no reemplazar la evaluación profesional.
     </p>
 {% endblock %}
+
 
 
 
