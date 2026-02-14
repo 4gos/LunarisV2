@@ -215,6 +215,11 @@ main {
     padding: 40px;
 }
 
+.img-equipo {
+  width: 300px;
+  display: block;
+  margin: 20px auto;
+}
 .predict-container {
     display: flex;
     flex-direction: column;
@@ -339,6 +344,7 @@ nav ul li:hover ul {
 .inicio-section.active {
     display: block;
 }
+
 
 
 
