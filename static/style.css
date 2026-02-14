@@ -159,10 +159,11 @@ nav ul li:hover ul {
 }
 
 /* ===== IMAGEN EQUIPO ===== */
-.img-equipo {
-    width: 300px;
-    display: block;
-    margin: 20px auto;
+.Equipo {
+  width: 25vw;      /* 25% del ancho de la pantalla */
+  height: auto;
+  display: block;
+  margin: 20px auto;
 }
 
 
