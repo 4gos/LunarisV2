@@ -63,7 +63,9 @@ nav a:hover {
     gap: 60px;
     margin-top: 40px;
 }
-
+.predict-btn{
+    margin-top: 20px;
+}
 .predict-container:not(.has-result) {
     justify-content: center;
 }
@@ -165,6 +167,7 @@ nav ul li:hover ul {
   display: block;
   margin: 20px auto;
 }
+
 
 
 
