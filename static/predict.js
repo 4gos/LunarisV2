@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             Object.entries(vitProbs).forEach(([label, p]) => {
                 const line = document.createElement("p");
-                line.innerText = `${label}: ${p}`;
+                line.innerText = `${label}: ${p}%`;
                 probsContainer.appendChild(line);
             });
 
