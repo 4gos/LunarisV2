@@ -32,8 +32,9 @@
         <p>
             Para encontrar una guia detallada de como usar la pagina hace click aqui.
         </p>
-        <a href="https://drive.google.com/file/d/1gBAzOtJN5pI2p64KRtYbLb-J6a1oxfji/view" class="btn-manual" target="_blank">
-          Manual de usuario
+        <a href="{{ url_for('static', filename='manual_usuario.pdf') }}" 
+           class="btn-manual" target="_blank">
+           Manual de usuario
         </a>
     </section>
     
@@ -49,6 +50,7 @@
     </section>
 </div>
 {% endblock %}
+
 
 
 
