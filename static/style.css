@@ -167,6 +167,14 @@ nav ul li:hover ul {
   display: block;
   margin: 20px auto;
 }
+/* ===== ESQUEMA VIT ===== */
+.esquema {
+  height: auto;
+  display: block;
+  align-items: center;
+  margin: 20px auto;
+}
+
 
 
 
