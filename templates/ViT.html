@@ -36,11 +36,17 @@
     <img src="{{ url_for('static', filename='categorias.png') }}" 
          alt="categorias" class="categorias">
     <p>Para garantizar resultados confiables, los datos se dividieron en:</p>
-    <p>
-        -	Entrenamiento: utilizado para que el modelo aprenda patrones visuales.
-        -	Validación: empleado para ajustar los parámetros y evitar sobreajuste.
-        -	Prueba: utilizado para evaluar el desempeño final del sistema
-    </p>
+        <ul class="datos">
+            <li>
+            -	Entrenamiento: utilizado para que el modelo aprenda patrones visuales.
+            </li>
+            <li>
+            -	Validación: empleado para ajustar los parámetros y evitar sobreajuste.
+            </li>
+            <li>
+            -	Prueba: utilizado para evaluar el desempeño final del sistema
+            </li>
+        </ul>
     <p>
         El modelo se inicializó con pesos previamente entrenados sobre millones de imágenes generales (transfer learning), lo que permitió mejorar la precisión y reducir el tiempo de entrenamiento.
     </p>
@@ -48,11 +54,18 @@
         Además, se aplicaron técnicas de aumentación de datos, generando variaciones de las imágenes originales mediante transformaciones geométricas y fotométricas. Esto permitió mejorar el aprendizaje, especialmente en clases con menor cantidad de ejemplos.
     </p>
     <p>El entrenamiento se realizó en tres etapas progresivas:</p>
-    <p>
-        1.	Ajuste inicial de la capa de clasificación: Se entrenó únicamente la capa final del modelo, manteniendo congelados los pesos del modelo preentrenado. Esto permitió adaptar el clasificador a las categorías dermatológicas específicas.
-        2.	Ajuste fino del modelo completo (fine-tuning): Posteriormente se entrenaron todas las capas del modelo con una tasa de aprendizaje menor, permitiendo adaptar de forma gradual las representaciones visuales al dominio de lesiones cutáneas.
-        3.	Refinamiento del modelo: Finalmente, se realizó un reentrenamiento fino para mejorar la capacidad de generalización y el desempeño en clases menos representadas, reduciendo el sobreajuste y aumentando la estabilidad del modelo.
-    </p>
+        <ul class="modificaciones">
+            <li>
+            1.	Ajuste inicial de la capa de clasificación: Se entrenó únicamente la capa final del modelo, manteniendo congelados los pesos del modelo preentrenado. Esto permitió adaptar el clasificador a las categorías dermatológicas específicas.
+            </li>
+            <li>
+            2.	Ajuste fino del modelo completo (fine-tuning): Posteriormente se entrenaron todas las capas del modelo con una tasa de aprendizaje menor, permitiendo adaptar de forma gradual las representaciones visuales al dominio de lesiones cutáneas.
+            </li>
+            <li>
+            3.	Refinamiento del modelo: Finalmente, se realizó un reentrenamiento fino para mejorar la capacidad de generalización y el desempeño en clases menos representadas, reduciendo el sobreajuste y aumentando la estabilidad del modelo.
+            </li>
+        </ul>
+
     <h2>Desempeño del sistema</h2>
     <p>
         Durante el entrenamiento se alcanzó una precisión muy elevada (99,7%), lo que sugiere que el modelo fue capaz de aprender correctamente los patrones del conjunto de datos y capturar las características relevantes de las imágenes.
@@ -67,6 +80,7 @@
     <h2>Rol clínico del sistema</h2>
     <p>LUNARIS proporciona estimaciones probabilísticas basadas en el análisis de imágenes. Estas predicciones representan una ayuda para la detección temprana y el análisis complementario de lesiones cutáneas, y no constituyen un diagnóstico médico definitivo ni reemplazan la evaluación profesional.</p>
 {% endblock %}
+
 
 
 
