@@ -6,20 +6,21 @@
     </p>
     <p>
     A diferencia de los modelos tradicionales basados en redes convolucionales (CNN), el ViT analiza la imagen mediante mecanismos de atención que permiten comprender relaciones globales entre distintas regiones de la imagen. Esto resulta especialmente útil en imágenes médicas, donde la forma, estructura y distribución espacial de una lesión aportan información clínica relevante.    </p>
-    <p>
-    El funcionamiento del modelo puede resumirse en las siguientes etapas:
-    </p>
-    <p>
-1.	División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.    </p>
-    <p>
-2.	Codificación posicional: se incorpora información sobre la ubicación de cada parche para preservar la estructura espacial de la imagen.
-    </p>
-    <p>
-3.	Mecanismo de autoatención: el modelo evalúa la relación entre todas las regiones de la imagen de forma simultánea, identificando patrones complejos como variaciones de color, textura y bordes.
-    </p>
-    <p>
-4.	Clasificación final: a partir del análisis global de la imagen, el modelo estima probabilidades para cada categoría dermatológica.
-    </p>
+    <p>El funcionamiento del modelo puede resumirse en las siguientes etapas:</p>
+        <ul class="etapas">
+            <li>
+                1.	División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.    </p>
+            </li>
+            <li>
+                2.	Codificación posicional: se incorpora información sobre la ubicación de cada parche para preservar la estructura espacial de la imagen.
+            </li>
+            <li>
+                3.	Mecanismo de autoatención: el modelo evalúa la relación entre todas las regiones de la imagen de forma simultánea, identificando patrones complejos como variaciones de color, textura y bordes.
+            </li>
+            <li>
+                4.	Clasificación final: a partir del análisis global de la imagen, el modelo estima probabilidades para cada categoría dermatológica.
+            </li>
+        </ul>
     <p>
     Este enfoque permite capturar tanto características locales como relaciones globales entre distintas zonas de la lesión.
     </p>
@@ -66,6 +67,7 @@
     <h2>Rol clínico del sistema</h2>
     <p>LUNARIS proporciona estimaciones probabilísticas basadas en el análisis de imágenes. Estas predicciones representan una ayuda para la detección temprana y el análisis complementario de lesiones cutáneas, y no constituyen un diagnóstico médico definitivo ni reemplazan la evaluación profesional.</p>
 {% endblock %}
+
 
 
 
