@@ -4,12 +4,11 @@
     <p>
     El sistema LUNARIS utiliza un modelo de inteligencia artificial denominado Vision Transformer (ViT) para analizar imágenes dermatoscópicas y clasificar los distintos tipos de lesiones cutáneas. 
     </p>
-    <p>
-    A diferencia de los modelos tradicionales basados en redes convolucionales (CNN), el ViT analiza la imagen mediante mecanismos de atención que permiten comprender relaciones globales entre distintas regiones de la imagen. Esto resulta especialmente útil en imágenes médicas, donde la forma, estructura y distribución espacial de una lesión aportan información clínica relevante.    </p>
+    <p>A diferencia de los modelos tradicionales basados en redes convolucionales (CNN), el ViT analiza la imagen mediante mecanismos de atención que permiten comprender relaciones globales entre distintas regiones de la imagen. Esto resulta especialmente útil en imágenes médicas, donde la forma, estructura y distribución espacial de una lesión aportan información clínica relevante.    </p>
     <p>El funcionamiento del modelo puede resumirse en las siguientes etapas:</p>
         <ol class="etapas">
             <li>
-                División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.    </p>
+                División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.
             </li>
             <li>
                 Codificación posicional: se incorpora información sobre la ubicación de cada parche para preservar la estructura espacial de la imagen.
@@ -21,9 +20,7 @@
                 Clasificación final: a partir del análisis global de la imagen, el modelo estima probabilidades para cada categoría dermatológica.
             </li>
         </ol>
-    <p>
-    Este enfoque permite capturar tanto características locales como relaciones globales entre distintas zonas de la lesión.
-    </p>
+    <p>Este enfoque permite capturar tanto características locales como relaciones globales entre distintas zonas de la lesión.</p>
     <img src="{{ url_for('static', filename='Esquema_ViT.png') }}" 
          alt="Esquema ViT" class="Esquema">
     <h2>Entrenamiento del modelo</h2>
@@ -82,6 +79,7 @@
     <img src="{{ url_for('static', filename='doc_ia.jpeg') }}" 
          alt="doc_ia" class="doc_ia">
 {% endblock %}
+
 
 
 
