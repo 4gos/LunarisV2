@@ -1,33 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Como funciona nuestro predictor</h1>
+    <h1>¿Cómo funciona el modelo?</h1>
     <p>
-    Para analizar imágenes de lesiones en la piel usamos un modelo de inteligencia artificial llamado Vision Transformer, o simplemente ViT. Es una tecnología relativamente nueva en visión por computadora que, en vez de mirar la imagen como un todo desde el principio, la divide en pequeñas partes para poder interpretarla mejor.
+    El sistema LUNARIS utiliza un modelo de inteligencia artificial denominado Vision Transformer (ViT) para analizar imágenes dermatoscópicas y clasificar los distintos tipos de lesiones cutáneas. 
     </p>
     <p>
-    Primero, cada imagen dermatológica se separa en pequeños cuadrados (parches). Es como si cortaras una foto en muchas piezas y el modelo analizara cada una por separado. Después, esas piezas se convierten en datos que la red puede entender y se les agrega información sobre su posición para no perder la estructura original de la imagen. Esto es importante porque la ubicación de una lesión o su forma dentro de la piel aporta información clínica relevante.
+    A diferencia de los modelos tradicionales basados en redes convolucionales (CNN), el ViT analiza la imagen mediante mecanismos de atención que permiten comprender relaciones globales entre distintas regiones de la imagen. Esto resulta especialmente útil en imágenes médicas, donde la forma, estructura y distribución espacial de una lesión aportan información clínica relevante.    </p>
+    <p>
+    El funcionamiento del modelo puede resumirse en las siguientes etapas:
     </p>
     <p>
-    Una vez preparados esos parches, el modelo usa un mecanismo llamado “autoatención”. Dicho simple: cada parte de la imagen puede “mirar” a las demás para entender cómo se relacionan. Esto permite detectar patrones complejos, por ejemplo combinaciones de color, textura o bordes que pueden indicar distintos tipos de lesiones cutáneas.
+1.	División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.    </p>
+    <p>
+2.	Codificación posicional: se incorpora información sobre la ubicación de cada parche para preservar la estructura espacial de la imagen.
     </p>
     <p>
-    Para entrenar el modelo usamos imágenes previamente clasificadas en cinco categorías dermatológicas. Parte de las imágenes se usan para que el modelo aprenda (entrenamiento), otra parte para verificar que realmente esté aprendiendo y no memorizando (validación), y un último grupo para evaluar su desempeño final (prueba). Esta separación ayuda a que los resultados sean confiables.
+3.	Mecanismo de autoatención: el modelo evalúa la relación entre todas las regiones de la imagen de forma simultánea, identificando patrones complejos como variaciones de color, textura y bordes.
     </p>
     <p>
-    Además, utilizamos un modelo previamente entrenado con millones de imágenes generales. Esto se conoce como transferencia de aprendizaje. En lugar de empezar desde cero, el modelo ya sabe reconocer formas, colores y texturas básicas, y solo necesita adaptarse al problema específico de lesiones cutáneas. Esto reduce tiempos de entrenamiento y mejora la precisión.
+4.	Clasificación final: a partir del análisis global de la imagen, el modelo estima probabilidades para cada categoría dermatológica.
     </p>
     <p>
-    También aplicamos aumentación de datos. Básicamente, generamos variaciones de las imágenes (cambios leves de brillo, rotaciones, recortes, etc.) para que el modelo vea más diversidad. Esto ayuda a evitar que aprenda solo casos muy específicos y mejora su capacidad para generalizar a imágenes nuevas. En clases donde había menos ejemplos se aplicaron transformaciones más intensas para equilibrar el aprendizaje.
-    </p>
-    <p>
-    Durante el entrenamiento se ajustaron varios parámetros, como la velocidad de aprendizaje del modelo o la regularización para evitar sobreajuste. Incluso el entrenamiento se hizo en dos etapas: primero se adaptó la capa final encargada de clasificar las lesiones y luego se ajustó todo el modelo de forma más fina. Esto permitió aprovechar el conocimiento previo sin perder precisión.
-    </p>
-    <p>
-    El resultado final es un sistema capaz de estimar probabilidades para cada tipo de lesión a partir de una imagen. Es importante aclarar que estas probabilidades representan una estimación estadística del modelo, no un diagnóstico médico definitivo. La herramienta busca servir como apoyo para detección temprana y análisis complementario, no reemplazar la evaluación profesional.
+    Este enfoque permite capturar tanto características locales como relaciones globales entre distintas zonas de la lesión.
     </p>
     <img src="{{ url_for('static', filename='Esquema_ViT.png') }}" 
          alt="Esquema ViT" class="Esquema">
+    <h2>Entrenamiento del modelo</h2>
+    <p>
+        El modelo fue entrenado utilizando un conjunto de datos unificado de 30.575 imágenes dermatoscópicas, organizadas en cinco categorías dermatológicas. Estas imágenes provienen del reservorio público ISIC Archive
+    </p>
+    <p>
+        El conjunto de datos fue previamente sometido a procesos de depuración, traducción y balanceo de clases, con el objetivo de mejorar la capacidad de generalización del sistema y optimizar el costo computacional asociado al entrenamiento.
+    </p>
+    <img src="{{ url_for('static', filename='categorias.png') }}" 
+         alt="categorias" class="categorias">
+    <p>Para garantizar resultados confiables, los datos se dividieron en:</p>
+    <p>
+        -	Entrenamiento: utilizado para que el modelo aprenda patrones visuales.
+        -	Validación: empleado para ajustar los parámetros y evitar sobreajuste.
+        -	Prueba: utilizado para evaluar el desempeño final del sistema
+    </p>
+    <p>
+        El modelo se inicializó con pesos previamente entrenados sobre millones de imágenes generales (transfer learning), lo que permitió mejorar la precisión y reducir el tiempo de entrenamiento.
+    </p>
+    <p>
+        Además, se aplicaron técnicas de aumentación de datos, generando variaciones de las imágenes originales mediante transformaciones geométricas y fotométricas. Esto permitió mejorar el aprendizaje, especialmente en clases con menor cantidad de ejemplos.
+    </p>
+    <p>El entrenamiento se realizó en tres etapas progresivas:</p>
+    <p>
+        1.	Ajuste inicial de la capa de clasificación: Se entrenó únicamente la capa final del modelo, manteniendo congelados los pesos del modelo preentrenado. Esto permitió adaptar el clasificador a las categorías dermatológicas específicas.
+        2.	Ajuste fino del modelo completo (fine-tuning): Posteriormente se entrenaron todas las capas del modelo con una tasa de aprendizaje menor, permitiendo adaptar de forma gradual las representaciones visuales al dominio de lesiones cutáneas.
+        3.	Refinamiento del modelo: Finalmente, se realizó un reentrenamiento fino para mejorar la capacidad de generalización y el desempeño en clases menos representadas, reduciendo el sobreajuste y aumentando la estabilidad del modelo.
+    </p>
+    <h2>Desempeño del sistema</h2>
+    <p>
+        Durante el entrenamiento se alcanzó una precisión muy elevada (99,7%), lo que sugiere que el modelo fue capaz de aprender correctamente los patrones del conjunto de datos y capturar las características relevantes de las imágenes.
+    </p>
+    <p>
+        En la evaluación sobre datos no vistos, el modelo alcanzó una precisión de validación cercana al 86,6%, mostrando una buena capacidad de generalización. Las estrategias de aumentación de datos, balanceo de clases, regularización y ajuste progresivo permitieron mejorar el reconocimiento de lesiones menos representadas y reducir el sobreajuste
+    </p>
+    <h2>Explicabilidad del modelo</h2>
+    <p>Un aspecto central del proyecto es la interpretabilidad de las predicciones. Para facilitar la comprensión clínica de los resultados, el sistema incorpora criterios dermatológicos clásicos basados en la Regla ABCD (asimetría, bordes, color y diámetro).
+    </p>
+    <p>Estos criterios permiten contrastar las predicciones del modelo con parámetros utilizados en la práctica clínica, favoreciendo una interpretación más transparente y confiable de los resultados.</p>
+    <h2>Rol clínico del sistema</h2>
+    <p>LUNARIS proporciona estimaciones probabilísticas basadas en el análisis de imágenes. Estas predicciones representan una ayuda para la detección temprana y el análisis complementario de lesiones cutáneas, y no constituyen un diagnóstico médico definitivo ni reemplazan la evaluación profesional.</p>
 {% endblock %}
+
 
 
 
