@@ -7,20 +7,20 @@
     <p>
     A diferencia de los modelos tradicionales basados en redes convolucionales (CNN), el ViT analiza la imagen mediante mecanismos de atención que permiten comprender relaciones globales entre distintas regiones de la imagen. Esto resulta especialmente útil en imágenes médicas, donde la forma, estructura y distribución espacial de una lesión aportan información clínica relevante.    </p>
     <p>El funcionamiento del modelo puede resumirse en las siguientes etapas:</p>
-        <ul class="etapas">
+        <ol class="etapas">
             <li>
-                1.	División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.    </p>
+                División en parches: cada imagen se divide en pequeñas regiones de tamaño fijo (16×16 píxeles). Cada región se transforma en un vector de características que el modelo puede procesar.    </p>
             </li>
             <li>
-                2.	Codificación posicional: se incorpora información sobre la ubicación de cada parche para preservar la estructura espacial de la imagen.
+                Codificación posicional: se incorpora información sobre la ubicación de cada parche para preservar la estructura espacial de la imagen.
             </li>
             <li>
-                3.	Mecanismo de autoatención: el modelo evalúa la relación entre todas las regiones de la imagen de forma simultánea, identificando patrones complejos como variaciones de color, textura y bordes.
+                Mecanismo de autoatención: el modelo evalúa la relación entre todas las regiones de la imagen de forma simultánea, identificando patrones complejos como variaciones de color, textura y bordes.
             </li>
             <li>
-                4.	Clasificación final: a partir del análisis global de la imagen, el modelo estima probabilidades para cada categoría dermatológica.
+                Clasificación final: a partir del análisis global de la imagen, el modelo estima probabilidades para cada categoría dermatológica.
             </li>
-        </ul>
+        </ol>
     <p>
     Este enfoque permite capturar tanto características locales como relaciones globales entre distintas zonas de la lesión.
     </p>
@@ -38,13 +38,13 @@
     <p>Para garantizar resultados confiables, los datos se dividieron en:</p>
         <ul class="datos">
             <li>
-            -	Entrenamiento: utilizado para que el modelo aprenda patrones visuales.
+            Entrenamiento: utilizado para que el modelo aprenda patrones visuales.
             </li>
             <li>
-            -	Validación: empleado para ajustar los parámetros y evitar sobreajuste.
+            Validación: empleado para ajustar los parámetros y evitar sobreajuste.
             </li>
             <li>
-            -	Prueba: utilizado para evaluar el desempeño final del sistema
+            Prueba: utilizado para evaluar el desempeño final del sistema
             </li>
         </ul>
     <p>
@@ -54,17 +54,17 @@
         Además, se aplicaron técnicas de aumentación de datos, generando variaciones de las imágenes originales mediante transformaciones geométricas y fotométricas. Esto permitió mejorar el aprendizaje, especialmente en clases con menor cantidad de ejemplos.
     </p>
     <p>El entrenamiento se realizó en tres etapas progresivas:</p>
-        <ul class="modificaciones">
+        <ol class="modificaciones">
             <li>
-            1.	Ajuste inicial de la capa de clasificación: Se entrenó únicamente la capa final del modelo, manteniendo congelados los pesos del modelo preentrenado. Esto permitió adaptar el clasificador a las categorías dermatológicas específicas.
+            Ajuste inicial de la capa de clasificación: Se entrenó únicamente la capa final del modelo, manteniendo congelados los pesos del modelo preentrenado. Esto permitió adaptar el clasificador a las categorías dermatológicas específicas.
             </li>
             <li>
-            2.	Ajuste fino del modelo completo (fine-tuning): Posteriormente se entrenaron todas las capas del modelo con una tasa de aprendizaje menor, permitiendo adaptar de forma gradual las representaciones visuales al dominio de lesiones cutáneas.
+            Ajuste fino del modelo completo (fine-tuning): Posteriormente se entrenaron todas las capas del modelo con una tasa de aprendizaje menor, permitiendo adaptar de forma gradual las representaciones visuales al dominio de lesiones cutáneas.
             </li>
             <li>
-            3.	Refinamiento del modelo: Finalmente, se realizó un reentrenamiento fino para mejorar la capacidad de generalización y el desempeño en clases menos representadas, reduciendo el sobreajuste y aumentando la estabilidad del modelo.
+            Refinamiento del modelo: Finalmente, se realizó un reentrenamiento fino para mejorar la capacidad de generalización y el desempeño en clases menos representadas, reduciendo el sobreajuste y aumentando la estabilidad del modelo.
             </li>
-        </ul>
+        </ol>
 
     <h2>Desempeño del sistema</h2>
     <p>
@@ -82,6 +82,7 @@
     <img src="{{ url_for('static', filename='doc_ia.jpeg') }}" 
          alt="doc_ia" class="doc_ia">
 {% endblock %}
+
 
 
 
