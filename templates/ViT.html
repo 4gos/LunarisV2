@@ -25,8 +25,7 @@
          alt="Esquema ViT" class="Esquema">
     <h2>Entrenamiento del modelo</h2>
     <p>
-        El modelo fue entrenado utilizando un conjunto de datos unificado de 30.575 imágenes dermatoscópicas, organizadas en cinco categorías dermatológicas. Estas imágenes provienen del reservorio público ISIC Archive
-    </p>
+        El proceso de entrenamiento se llevó a cabo utilizando un conjunto de datos unificado compuesto por 30.575 imágenes dermatoscópicas, organizadas en cinco categorías dermatológicas. Estas imágenes fueron obtenidas del reservorio público <a href="https://www.isic-archive.com/" target="_blank">ISIC Archive.</a></p>
     <p>
         El conjunto de datos fue previamente sometido a procesos de depuración, traducción y balanceo de clases, con el objetivo de mejorar la capacidad de generalización del sistema y optimizar el costo computacional asociado al entrenamiento.
     </p>
@@ -70,15 +69,18 @@
     <p>
         En la evaluación sobre datos no vistos, el modelo alcanzó una precisión de validación cercana al 86,6%, mostrando una buena capacidad de generalización. Las estrategias de aumentación de datos, balanceo de clases, regularización y ajuste progresivo permitieron mejorar el reconocimiento de lesiones menos representadas y reducir el sobreajuste
     </p>
+
     <h2>Explicabilidad del modelo</h2>
-    <p>Un aspecto central del proyecto es la interpretabilidad de las predicciones. Para facilitar la comprensión clínica de los resultados, el sistema incorpora criterios dermatológicos clásicos basados en la Regla ABCD (asimetría, bordes, color y diámetro).
+    <p>Un aspecto central del proyecto es la interpretabilidad de las predicciones. Para facilitar la comprensión clínica de los resultados, el sistema incorpora criterios clínicos clásicos basados en la Regla ABCD (asimetría, bordes, color y diámetro). Esta regla fue originalmente desarrollada como herramienta clínica para la detección temprana del melanoma. Si bien las categorías consideradas en este trabajo abarcan un espectro más amplio de lesiones cutáneas, la identificación temprana del melanoma constituye un objetivo prioritario debido a su alta agresividad y a la importancia del diagnóstico precoz en el pronóstico del paciente.
     </p>
-    <p>Estos criterios permiten contrastar las predicciones del modelo con parámetros utilizados en la práctica clínica, favoreciendo una interpretación más transparente y confiable de los resultados.</p>
+    <p>La incorporación de estos criterios permite contrastar las predicciones del modelo con parámetros utilizados en la práctica clínica habitual, favoreciendo una interpretación más transparente, clínicamente relevante y confiable de los resultados</p>
+    
     <h2>Rol clínico del sistema</h2>
     <p>LUNARIS proporciona estimaciones probabilísticas basadas en el análisis de imágenes. Estas predicciones representan una ayuda para la detección temprana y el análisis complementario de lesiones cutáneas, y no constituyen un diagnóstico médico definitivo ni reemplazan la evaluación profesional.</p>
     <img src="{{ url_for('static', filename='doc_ia.jpeg') }}" 
          alt="doc_ia" class="doc_ia">
 {% endblock %}
+
 
 
 
